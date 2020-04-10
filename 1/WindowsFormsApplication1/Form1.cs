@@ -1,0 +1,98 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WindowsFormsApplication1
+{
+    public partial class Практика1задание : Form
+    {
+        public bool sas;
+        public Практика1задание()
+        {
+            InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (sas)
+            {
+                //radiana=(gradus*pi)/180
+                double a;
+                a = Convert.ToDouble(textBox1.Text);
+                if (radioButton1.Checked) a = Math.PI / 180;
+                double z1, z2;
+                z1 = (1 - 2 * (Math.Pow(Math.Sin(a), 2))) / (1 + (Math.Sin(2 * a)));
+                z2 = (1 - Math.Tan(a)) / (1 + Math.Tan(a));
+                textBox3.Text += Environment.NewLine +
+        "Результат z1= " + z1.ToString() + " z2=" + z2.ToString();
+            }
+        }
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            sas =true;
+            //кнопка.енаблет;
+        }
+
+        private void textBox3_MouseLeave(object sender, EventArgs e)
+        {
+            textBox3.BackColor=Color.Red;
+        }
+
+        private void textBox3_MouseHover(object sender, EventArgs e)
+        {
+            //textBox3.BackColor = Color.Red;
+        }
+
+        private void textBox3_MouseDown(object sender, MouseEventArgs e)
+        {
+            textBox3.BackColor = Color.White;
+        }
+
+        private void textBox3_MouseMove(object sender, MouseEventArgs e)
+        {
+            textBox3.BackColor = Color.White;
+        }
+
+        private void textBox3_MouseUp(object sender, MouseEventArgs e)
+        {
+            textBox3.BackColor = Color.White;
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            if (Char.IsDigit(e.KeyChar) || e.KeyChar == ',' || e.KeyChar == (char)Keys.Back)
+            {
+                //e.Handled = true;
+                return;
+            }
+            e.KeyChar = '\0';
+        }
+    }
+}

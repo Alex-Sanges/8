@@ -1,0 +1,5 @@
+ private void KeyPress(object sender, KeyPressEventArgs e)
+        { if (Char.IsDigit(e.KeyChar) || (e.KeyChar == (char)Keys.Back)) return;
+         e.KeyChar = '\0'; }
+        private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        { e.Control.KeyPress += new KeyPressEventHandler(KeyPress); }

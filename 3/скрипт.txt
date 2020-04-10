@@ -1,0 +1,165 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WindowsFormsApp2
+{
+    public partial class Form1 : Form
+    {
+        public int number_per_min;
+        public int number_pos_min;
+        public bool odin=true;
+        public int  n;
+        public Form1()
+        {
+            InitializeComponent();
+            openFileDialog1.Filter = "Text files(*.txt)|*.txt|ALL files(*.*)|*.*";
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if(radioButton1.Checked)
+            {
+                n = (int)numericUpDown1.Value;
+                Random r = new Random();
+                dataGridView1.ColumnCount = n;
+                dataGridView1.RowCount = 1;
+                for (int i = 0; i < dataGridView1.ColumnCount; i++) // добавление номера колонок
+                {
+                    dataGridView1.Columns[i].Name = Convert.ToString(i);
+                }
+                for (int i = 0; i < dataGridView1.ColumnCount; i++) // добавление самих колонок
+                {
+                    //dataGridView1.[0, i].Value =r.Next(-20, 20);
+                    dataGridView1.Rows[0].Cells[i].Value = r.Next(-100, 100);
+                }
+                //odin = true;
+            }
+            if (radioButton2.Checked)
+            {
+                n = (int)numericUpDown1.Value;
+                Random r = new Random();
+                //int numer = (int)numericUpDown1.Value + 1;
+                dataGridView1.ColumnCount = n;
+                dataGridView1.RowCount = 1;
+                //dataGridView1.Columns[0].Name = "Cумма";//столбы
+                //dataGridView1.Columns[1].Name = "Min";
+                for (int i = 0; i < dataGridView1.ColumnCount; i++) // добавление номера колонок
+                {
+                    dataGridView1.Columns[i].Name = Convert.ToString(i);
+                }
+                for (int i = 0; i < dataGridView1.ColumnCount; i++) // добавление самих колонок
+                {
+                    //dataGridView1.[0, i].Value =r.Next(-20, 20);
+                    dataGridView1.Rows[0].Cells[i].Value = null;
+                }
+            }
+            else if(!radioButton2.Checked && !radioButton1.Checked)
+            { MessageBox.Show("Чего жмёшь, сначала что-нибудь задай"); }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+           // n =;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (odin)
+            {
+                 number_per_min = 0;
+                 number_pos_min = n;
+                int min;
+                int min2;
+                //min = dataGridView1.Rows[0].Cells[0].Value;
+                min = (int)dataGridView1.Rows[0].Cells[0].Value;
+                min2 = (int)dataGridView1.Rows[0].Cells[n - 1].Value;
+                for (int i = 0; i < dataGridView1.ColumnCount; i++) 
+                {
+                    //dataGridView1.[0, i].Value =r.Next(-20, 20);
+                    if (min > (int)dataGridView1.Rows[0].Cells[i].Value)
+                    {
+                        min = (int)dataGridView1.Rows[0].Cells[i].Value;
+                        number_per_min = i;
+                    }
+                }
+                for (int i = n - 1; i > number_per_min && i != 1; i--) 
+                {
+                    //dataGridView1.[0, i].Value =r.Next(-20, 20);
+                    if (min2 > (int)dataGridView1.Rows[0].Cells[i].Value)
+                    {
+                        min2 = (int)dataGridView1.Rows[0].Cells[i].Value;
+                        number_pos_min = i;
+                    }
+                }
+                MessageBox.Show("1 мин=" + min + "number=" + number_per_min + " " + "2 min="
+                    + min2 + "number=" + number_pos_min);
+                odin = false;
+            }
+            else
+            {
+                for (int i = 0; i < number_per_min-1; i++) 
+                {
+                    dataGridView1.Rows[0].Cells[i].Value = 
+                        (int)dataGridView1.Rows[0].Cells[i].Value *
+                        (int)dataGridView1.Rows[0].Cells[i].Value;
+                }
+                for (int i = n-1; i > number_pos_min + 1; i--)
+                {
+                    dataGridView1.Rows[0].Cells[i].Value =
+                        (int)dataGridView1.Rows[0].Cells[i].Value *
+                        (int)dataGridView1.Rows[0].Cells[i].Value;
+                }
+            }
+        }
+        //спс Марку за ключ
+        private void KeyPress(object sender, KeyPressEventArgs e)
+        { if (Char.IsDigit(e.KeyChar) || (e.KeyChar == (char)Keys.Back)) return;
+         e.KeyChar = '\0'; }
+        private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        { e.Control.KeyPress += new KeyPressEventHandler(KeyPress); }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
+                return;
+            // Получаем выбранный файл.
+            string filename = openFileDialog1.FileName;
+            // Читаем файл в строку.
+            string fileText = System.IO.File.ReadAllText(filename);
+            // Разделяем строку на переменные.
+            string[] list = fileText.Split(' ');
+            int r = list.Length;
+            textBox1.Text = r.ToString();
+            int[] mas = new int[r];
+            dataGridView1.RowCount = 1;
+            dataGridView1.ColumnCount = r;
+            for (int i = 0; i < dataGridView1.ColumnCount; i++) // добавление номера колонок
+            {
+                dataGridView1.Columns[i].Name = Convert.ToString(i);
+            }
+            for (int i = 0; i < dataGridView1.ColumnCount; i++) // добавление самих колонок
+            {
+                //dataGridView1.[0, i].Value =r.Next(-20, 20);
+                mas[i] = Convert.ToInt32(list[i]);
+                dataGridView1.Rows[0].Cells[i].Value = mas[i];
+            }
+            MessageBox.Show("Файл: " + filename + " открыт!");
+        }
+    }
+}

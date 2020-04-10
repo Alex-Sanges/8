@@ -1,0 +1,59 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace WindowsFormsApp1
+{
+    class Class1
+    {
+        public static double classic(double x)
+        {
+            x = 27092;
+            return x;
+        }
+        public static bool Pera(double a, bool chislo,bool error)
+        {
+            chislo = true;
+            for (int i = 2; i < a; i++)
+            {
+                if (a % i == 0)
+                {
+                    chislo = false;
+                    error = false;
+                }
+            }
+            if (chislo)
+            {
+                //textBox3.Text += Environment.NewLine + "число простое";
+                chislo= true;
+                error = false;
+                //return chislo;
+               // error = false;
+            }
+            return chislo;
+        }
+        public static bool Perb(double b, bool chislo, bool error)
+        {
+            chislo = true;
+            for (int i = 2; i < b; i++)
+            {
+                if (b % i == 0)
+                {
+                    chislo = false;
+                    error = false;
+                }
+            }
+            if (chislo)
+            {
+                //textBox3.Text += Environment.NewLine + "число простое";
+                chislo = true;
+                error = false;
+                //return chislo;
+                // error = false;
+            }
+            return chislo;
+        }
+    }
+}

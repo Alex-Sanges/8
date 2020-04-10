@@ -1,0 +1,130 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WindowsFormsApp1
+{
+    public partial class Form1 : Form
+    {
+        public bool sas1, sas2;
+        public double x;
+        public bool chislo;
+        public bool error;
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            textBox3.Clear();
+            //double x;
+            //Class1.classic(x);
+           // textBox3.Text += Class1.classic(x).ToString();
+            if (sas1 && sas2 && radioButton2.Checked)
+            {
+                double a = double.Parse(textBox1.Text);
+                textBox3.Text += Environment.NewLine +
+                "A = " + a.ToString();
+                double b = double.Parse(textBox2.Text);
+                textBox3.Text += Environment.NewLine +
+                "B = " + b.ToString();
+                for (double g = a; g < b; g++)
+                {
+                    sas2 = true;
+                    for (int i = 2; i < g; i++)
+                    {
+                        if (g % i == 0)
+                        {
+                            //false
+                            sas2 = false;
+                            //textBox3.Text += Environment.NewLine +g+ "число обычное";
+                            break;
+                        }
+                    }
+                    if (sas2)
+                    {
+                        textBox3.Text +=Environment.NewLine+ g ;
+                        // true;
+                    }
+                }
+
+            }
+            else if (sas1 && radioButton1.Checked)
+            {
+
+                double a = double.Parse(textBox1.Text);
+                textBox3.Text += Environment.NewLine +
+                "A = " + a.ToString();
+                chislo=Class1.Pera(a, chislo, error);
+                if (chislo)
+                {
+                    textBox3.Text += Environment.NewLine + "число простое";
+                    //textBox3.Text +=Environment.NewLine+ Class1.classic(x).ToString();
+                }
+                else textBox3.Text += Environment.NewLine + "число обычное";
+            }
+            else if(sas2 && radioButton1.Checked)
+            {
+                double b = double.Parse(textBox2.Text);
+                textBox3.Text += Environment.NewLine +
+                "B = " + b.ToString();
+                chislo = Class1.Perb(b, chislo, error);
+                if (chislo)
+                {
+                    textBox3.Text += Environment.NewLine + "число простое";
+                    //textBox3.Text +=Environment.NewLine+ Class1.classic(x).ToString();
+                }
+                else textBox3.Text += Environment.NewLine + "число обычное";
+               // for (int i = 2; i < b/*(int)(a / 2)*/; i++)
+                /*{
+                    if (b % i == 0)
+                    {
+                        //false
+                        sas2 = false;
+                        textBox3.Text += Environment.NewLine + "число обычное";
+                        break;
+                    }
+                }
+                if (sas2)
+                {
+                    textBox3.Text += Environment.NewLine + "число простое";
+                    // true;
+                }*/
+            }
+            //else MessageBox.Show("Введи а и б");
+            else MessageBox.Show("Ты нифига не ввёл");
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (textBox1.Text != "")
+            { 
+                sas1 = true;
+                }
+            else sas1 = false;
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {if(textBox2.Text !="")
+            { sas2 = true; }
+            else sas2 = false;
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
